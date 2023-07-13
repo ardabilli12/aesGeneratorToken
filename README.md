@@ -1,6 +1,7 @@
 # AES Generator Token CLI
 
-The AES Generator Token CLI is a command-line tool written in Go that generates AES tokens for encrypting Company and User (paper internal usage only).
+The AES Generator Token CLI is a command-line tool written in Go that generates AES tokens for encrypting.
+Object example = data Company and User.
 
 ## Prerequisites
 

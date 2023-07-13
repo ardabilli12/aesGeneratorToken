@@ -2,9 +2,6 @@ package pkg
 
 import (
 	"aesGeneratorToken/pkg/repo"
-	"bytes"
-	"crypto/aes"
-	"crypto/cipher"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
@@ -51,8 +48,8 @@ func GenerateToken(c *cli.Context) error {
 }
 
 func generateAes() {
-	paperKey := os.Getenv("PAPER_KEY")
-	paperIv := os.Getenv("PAPER_IV")
+	paperKey := os.Getenv("KEY")
+	paperIv := os.Getenv("IV")
 
 	iv, err := base64.StdEncoding.WithPadding(base64.NoPadding).DecodeString(paperIv)
 	if err != nil {
@@ -71,7 +68,6 @@ func generateAes() {
 	}
 
 	UserEncrypt := base64.StdEncoding.EncodeToString(AESEncrypt(userByte, key, iv))
-	// fmt.Printf("companyEncrypt: %s\n", UserEncrypt)
 
 	companyByte, err := json.Marshal(dataCompany)
 	if err != nil {
@@ -80,15 +76,13 @@ func generateAes() {
 	}
 
 	CompanyEncrypt := base64.StdEncoding.EncodeToString(AESEncrypt(companyByte, key, iv))
-	// fmt.Printf("companyEncrypt: %s\n", CompanyEncrypt)
 
 	fmt.Println("Success generate token, here we go: ")
 	fmt.Println("=================================================")
 	fmt.Println()
-	// fmt.Println(string(result))
-	fmt.Printf("companyEncrypt: %s\n", CompanyEncrypt)
+	fmt.Printf("Company: %s\n", CompanyEncrypt)
 	fmt.Println()
-	fmt.Printf("UserEncrypt: %s\n", UserEncrypt)
+	fmt.Printf("User: %s\n", UserEncrypt)
 	fmt.Println()
 	fmt.Println("=================================================")
 
@@ -152,27 +146,4 @@ func getDataCompanyFromDb(companyId string) (err error) {
 	}
 
 	return nil
-}
-
-func AESEncrypt(src []byte, key []byte, IV []byte) []byte {
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		fmt.Println("key error1", err)
-	}
-	if len(src) == 0 {
-		fmt.Println("plain content empty")
-	}
-	ecb := cipher.NewCBCEncrypter(block, IV)
-	content := (src)
-	content = PKCS5Padding(content, block.BlockSize())
-
-	crypted := make([]byte, len(content))
-	ecb.CryptBlocks(crypted, content)
-	return crypted
-}
-
-func PKCS5Padding(ciphertext []byte, blockSize int) []byte {
-	padding := blockSize - len(ciphertext)%blockSize
-	padtext := bytes.Repeat([]byte{byte(padding)}, padding)
-	return append(ciphertext, padtext...)
 }
