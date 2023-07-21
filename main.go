@@ -13,12 +13,12 @@ import (
 
 func main() {
 	app := &cli.App{
-		Name:  "paper aes generator",
-		Usage: "simple paper aes generator prompts for you",
+		Name:  " aes generator",
+		Usage: "simple aes generator prompts for you",
 		Commands: []*cli.Command{
 			{
 				Name:   "generate",
-				Usage:  "generate a paper aes key",
+				Usage:  "generate a aes key",
 				Action: pkg.GenerateToken,
 				Flags: []cli.Flag{
 					&cli.StringFlag{

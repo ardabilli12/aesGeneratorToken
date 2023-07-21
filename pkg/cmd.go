@@ -48,15 +48,15 @@ func GenerateToken(c *cli.Context) error {
 }
 
 func generateAes() {
-	paperKey := os.Getenv("KEY")
-	paperIv := os.Getenv("IV")
+	valKey := os.Getenv("KEY")
+	valIv := os.Getenv("IV")
 
-	iv, err := base64.StdEncoding.WithPadding(base64.NoPadding).DecodeString(paperIv)
+	iv, err := base64.StdEncoding.WithPadding(base64.NoPadding).DecodeString(valIv)
 	if err != nil {
 		panic(err)
 	}
 
-	key, err := base64.StdEncoding.WithPadding(base64.NoPadding).DecodeString(paperKey)
+	key, err := base64.StdEncoding.WithPadding(base64.NoPadding).DecodeString(valKey)
 	if err != nil {
 		panic(err)
 	}
@@ -133,7 +133,7 @@ func getDataCompanyFromDb(companyId string) (err error) {
 		"company_state":             company.CompanyState,
 		"company_zip_code":          company.CompanyZipCode,
 		"company_country":           company.CompanyCountry,
-		"company_contact":           company.CompanyContact,
+		"company_contract":          company.CompanyContract,
 		"company_vat":               company.CompanyVat,
 		"company_website":           company.CompanyWebsite,
 		"company_logo":              company.CompanyLogo,
@@ -141,8 +141,12 @@ func getDataCompanyFromDb(companyId string) (err error) {
 		"company_bank_account":      company.CompanyBankAccount,
 		"company_bank_name":         company.CompanyBankName,
 		"company_favicon":           company.CompanyFavicon,
-		"company_subscription_type": company.CompanySubscriptionType,
+		"company_subscription_type": company.CompanySubcriptionType,
 		"created_at":                company.CreatedAt,
+		"updated_at":                company.UpdatedAt,
+		"email_verified":            company.EmailVerified,
+		"verification_token":        company.VerificationToken,
+		"language_id":               company.LanguageID,
 	}
 
 	return nil

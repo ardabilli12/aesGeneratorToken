@@ -27,7 +27,7 @@ The CLI has the following command:
 Generates an AES token for the specified email address.
 > ~ go run main.go generate --email user.email@example.com
 
-Replace `<email>` with the email address for which you want to generate the AES token.
+Replace `<user.email@example.com>` with the email address for which you want to generate the AES token.
 
 ## Troubleshooting
 
@@ -35,4 +35,4 @@ Replace `<email>` with the email address for which you want to generate the AES 
 - Double-check that you have Go version 1.16 or higher installed.
 
 ## Author
-Ardabilli12 - (ahmad.ardabilli@paper.id)
+Ardabilli12
